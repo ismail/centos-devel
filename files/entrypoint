@@ -1,0 +1,24 @@
+#!/bin/bash
+  
+set -e
+set -u
+
+: "${USER_UID:=0}"
+: "${USER_GID:=${USER_UID}}"
+: "${USER_NAME:=ismail}"
+
+if [ "$#" = 0 ]
+then set -- zsh -l
+fi
+
+if [ "$USER_UID" != 0 ]
+then
+        groupadd -g "${USER_GID}" "${USER_NAME}" &> /dev/null || :
+        useradd -ms /usr/bin/zsh -u "${USER_UID}" "${USER_NAME}" -g "${USER_GID}" 2> /dev/null
+        gosu "${USER_UID}:${USER_GID}" touch /home/"${USER_NAME}"/.zshrc
+        echo "${USER_NAME} ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/"${USER_NAME}"
+        
+        set -- gosu "${USER_UID}:${USER_GID}" "${@}"
+fi
+
+exec "$@"
