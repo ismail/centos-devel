@@ -9,7 +9,7 @@ RUN dnf --allowerasing install --setopt=tsflags=nodocs \
         bsdtar ca-certificates clang clang-tools-extra compiler-rt cpio \
         curl gcc gcc-c++ gdb git golang iproute less libasan \
         llvm mtr openssl python3 openssh-clients procps \
-        rpm strace vim zsh zstd -y && \
+        rpm sudo strace vim zsh zstd -y && \
     dnf clean all && rm -f /root/*.log && rm -rf /root/*.cfg
 
 ARG GOSU_VERSION=1.14
