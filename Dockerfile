@@ -3,7 +3,7 @@
 FROM quay.io/centos/centos:stream9-development
 
 RUN echo "install_weak_deps=False" >> /etc/dnf/dnf.conf
-RUN dnf install \
+RUN dnf install -y \
     https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm \
     https://dl.fedoraproject.org/pub/epel/epel-next-release-latest-9.noarch.rpm
 
