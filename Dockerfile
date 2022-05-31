@@ -3,6 +3,10 @@
 FROM quay.io/centos/centos:stream9-development
 
 RUN echo "install_weak_deps=False" >> /etc/dnf/dnf.conf
+RUN dnf install \
+    https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm \
+    https://dl.fedoraproject.org/pub/epel/epel-next-release-latest-9.noarch.rpm
+
 RUN dnf update -y && dnf clean all
 
 RUN dnf --allowerasing install --setopt=tsflags=nodocs \
